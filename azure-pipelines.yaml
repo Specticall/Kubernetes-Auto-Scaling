@@ -12,7 +12,7 @@ stages:
         displayName: "Run Terraform Apply"
         steps:
           - script: |
-              cd terraform && terraform init
+              terraform init
             displayName: "Initialize Terraform"
             workingDirectory: terraform
 
