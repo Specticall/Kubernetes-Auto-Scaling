@@ -19,9 +19,6 @@ stages:
               terraform apply -auto-approve
             displayName: "Provision Resource"
 
-      - job: Save
-        displayName: "Run Terraform Apply"
-        steps:
           - script: |
               mkdir -p /home/joseph/azagent/tfstate
               cp terraform.tfstate /home/joseph/azagent/tfstate/
