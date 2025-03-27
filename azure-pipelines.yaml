@@ -1,0 +1,47 @@
+trigger:
+  - main
+
+pool:
+  name: local
+
+stages:
+  - stage: Terraform
+    displayName: "Terraform Apply & Save State"
+    jobs:
+      - job: Apply
+        displayName: "Run Terraform Apply"
+        steps:
+          - script: |
+              terraform init
+            displayName: "Initialize Terraform"
+
+          - script: |
+              terraform apply -auto-approve
+            displayName: "Provision Resource"
+
+      - job: Save
+        displayName: "Run Terraform Apply"
+        steps:
+          - script: |
+              mkdir -p /home/joseph/azagent/tfstate
+              cp terraform.tfstate /home/joseph/azagent/tfstate/
+            displayName: "Save Terraform State File"
+
+  - stage: Ansible
+    displayName: "Configure VM with Ansible Playbook"
+    jobs:
+      - job: Configure
+        displayName: "Configure VM"
+        steps:
+          - task: DownloadSecureFile@1
+            name: sshKey
+            inputs:
+              secureFile: k8s_key
+
+          - script: |
+              export VM_IP=$(terraform output -raw vm_ip)
+              echo "##vso[task.setvariable variable=VM_IP]$VM_IP"
+            displayName: "Get VM IP Address"
+
+          - script: |
+              ansible-playbook -i $(VM_IP), -u worker --private-key ${sshKey.secureFilePath} ../ansible/install-docker.yaml'
