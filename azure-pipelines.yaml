@@ -44,5 +44,7 @@ stages:
             workingDirectory: terraform
 
           - script: |
+              chmod 600 $(sshKey.secureFilePath)
               ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i $(VM_IP), -u worker --private-key $(sshKey.secureFilePath) install-docker.yaml
             workingDirectory: ansible
+            displayName: "Execute Ansible Playbook"
