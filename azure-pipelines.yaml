@@ -12,17 +12,20 @@ stages:
         displayName: "Run Terraform Apply"
         steps:
           - script: |
-              terraform init
+              cd terraform && terraform init
             displayName: "Initialize Terraform"
+            workingDirectory: terraform
 
           - script: |
               terraform apply -auto-approve
             displayName: "Provision Resource"
+            workingDirectory: terraform
 
           - script: |
               mkdir -p /home/joseph/azagent/tfstate
               cp terraform.tfstate /home/joseph/azagent/tfstate/
             displayName: "Save Terraform State File"
+            workingDirectory: terraform
 
   - stage: Ansible
     displayName: "Configure VM with Ansible Playbook"
@@ -39,6 +42,8 @@ stages:
               export VM_IP=$(terraform output -raw vm_ip)
               echo "##vso[task.setvariable variable=VM_IP]$VM_IP"
             displayName: "Get VM IP Address"
+            workingDirectory: terraform
 
           - script: |
-              ansible-playbook -i $(VM_IP), -u worker --private-key ${sshKey.secureFilePath} ../ansible/install-docker.yaml'
+              ansible-playbook -i $(VM_IP), -u worker --private-key $(sshKey.secureFilePath) install-docker.yaml
+            workingDirectory: ansible
