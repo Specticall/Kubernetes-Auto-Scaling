@@ -37,12 +37,16 @@ stages:
             name: sshKey
             inputs:
               secureFile: k8s_key
-
+          
           - script: |
-              export VM_IP=$(terraform output -raw vm_ip)
+              export VM_IP=$(terraform output -state=/home/joseph/azagent/tfstate/terraform.tfstate -raw vm_ip)
               echo "##vso[task.setvariable variable=VM_IP]$VM_IP"
             displayName: "Get VM IP Address"
             workingDirectory: terraform
+          
+          - script: |
+              echo "Debug: VM_IP is $(VM_IP)"
+            displayName: "Debug VM_IP Variable"
 
           - script: |
               ansible-playbook -i $(VM_IP), -u worker --private-key $(sshKey.secureFilePath) install-docker.yaml
