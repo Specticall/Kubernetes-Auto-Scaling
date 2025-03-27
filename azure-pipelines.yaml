@@ -44,9 +44,5 @@ stages:
             workingDirectory: terraform
 
           - script: |
-              echo "Debug: VM_IP is $(VM_IP)"
-            displayName: "Debug VM_IP Variable"
-
-          - script: |
-              ansible-playbook -i $(VM_IP), -u worker --private-key $(sshKey.secureFilePath) install-docker.yaml
+              ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i $(VM_IP), -u worker --private-key $(sshKey.secureFilePath) install-docker.yaml
             workingDirectory: ansible
