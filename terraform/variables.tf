@@ -1,10 +1,7 @@
-variable "location" {
-  type    = string
-  default = "Indonesia Central"
-}
-
-variable "region" {
-  type        = string
-  default     = "indonesia"
-  description = "Region for the resources"
+variable "workers_config" {
+  type = map(object({
+    network_range = string
+    subnet_range = string
+    vm_ids = list(string)
+  }))
 }
