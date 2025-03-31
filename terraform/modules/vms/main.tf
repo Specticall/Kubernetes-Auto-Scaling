@@ -1,7 +1,8 @@
 resource "azurerm_public_ip" "k8s_worker_ip" {
-  for_each = toset(var.id_list)
+  # Conditionally create public ip if set to true
+  for_each =  toset(var.create_public_ip ? var.id_list : [])
 
-  name                = "k8s-worker-${each.value}-ip"
+  name                = "k8s-${each.value}-ip"
   location            = var.vnet.location
   resource_group_name = var.resource_group_name
   allocation_method   = "Dynamic"
@@ -10,7 +11,7 @@ resource "azurerm_public_ip" "k8s_worker_ip" {
 resource "azurerm_network_interface" "k8s_worker_nic" {
   for_each = toset(var.id_list)
 
-  name                = "k8s-worker-${each.value}-nic"
+  name                = "k8s-${each.value}-nic"
   location            = var.vnet.location
   resource_group_name = var.resource_group_name
 
@@ -18,14 +19,16 @@ resource "azurerm_network_interface" "k8s_worker_nic" {
     name                          = "internal"
     subnet_id                     = var.subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.k8s_worker_ip[each.value].id
+
+    # Conditionally assign public ip to nic
+    public_ip_address_id          = var.create_public_ip ? azurerm_public_ip.k8s_worker_ip[each.value].id : null
   }
 }
 
 resource "azurerm_linux_virtual_machine" "k8s_worker_vm" {
   for_each = toset(var.id_list)
 
-  name                = "k8s-worker-${each.value}-vm"
+  name                = "k8s-${each.value}-vm"
   resource_group_name = var.resource_group_name
 
   location            = var.vnet.location
@@ -42,7 +45,7 @@ resource "azurerm_linux_virtual_machine" "k8s_worker_vm" {
   }
 
   os_disk {
-    name                = "k8s-worker-${each.value}-osdisk"
+    name                = "k8s-${each.value}-osdisk"
     caching             = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }

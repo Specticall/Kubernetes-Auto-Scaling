@@ -25,3 +25,8 @@ variable "access" {
     public_ssh_key_path = string
   })
 }
+
+variable "create_public_ip" {
+  type = bool
+  default = true
+}

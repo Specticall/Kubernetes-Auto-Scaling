@@ -28,6 +28,7 @@ resource "azurerm_virtual_network_peering" "k8s_worker_to_master_peer" {
   remote_virtual_network_id    = var.master.vn_id
   allow_forwarded_traffic      = true
   allow_virtual_network_access = true
+  allow_gateway_transit        = true
 }
 
 resource "azurerm_virtual_network_peering" "k8s_master_to_worker" {
@@ -36,6 +37,9 @@ resource "azurerm_virtual_network_peering" "k8s_master_to_worker" {
 
   virtual_network_name         = var.master.vn_name
   remote_virtual_network_id    = azurerm_virtual_network.k8s_worker_vn.id
+
+  # Allows bastion to connect
   allow_forwarded_traffic      = true
   allow_virtual_network_access = true
+  allow_gateway_transit        = true
 }

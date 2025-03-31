@@ -25,7 +25,7 @@ module "vms" {
 
   access = {
     admin_username = local.worker_vm_admin_username
-    public_ssh_key_path = local.worker_vm_public_ssh_key_path
+    public_ssh_key_path = local.public_ssh_key_path
   }
 
   id_list = each.value.vm_ids
@@ -35,4 +35,19 @@ module "vms" {
   subnet = {
     id = module.networks[each.key].worker_subnet.id
   }
+
+  # Worker vms should be accessed through bastion instead of directly with public ip
+  create_public_ip = false
+}
+
+module "bastion_vm" {
+  source = "./modules/bastion"
+  resource_group_name = local.resource_group_name
+
+  virtual_network_name = local.master.vn_name
+  location = local.master.location
+  subnet_range = local.bastion_subnet_range
+
+  admin_username = local.bastion_vm_admin_username
+  public_ssh_key_path = local.public_ssh_key_path
 }
