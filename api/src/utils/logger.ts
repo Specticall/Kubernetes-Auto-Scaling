@@ -1,6 +1,6 @@
 import chalk from "chalk";
 
-export const logger = {
+export default {
   error(...args: unknown[]) {
     console.log(chalk.red("[ERROR]"), ...args);
   },

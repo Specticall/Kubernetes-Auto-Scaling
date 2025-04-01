@@ -5,8 +5,8 @@ import {
   ANSIBLE_DIR_PATH,
   NODE_VM_ADMIN_USERNAME,
   NODE_VM_SSH_PRIVATE_KEY_PATH,
-} from "../config/config";
-import { VMIps } from "..";
+} from "../../config/config";
+import { VMIps } from "../../index.old";
 
 export default async function setupNodeVMWithAnsible(
   vmIps: VMIps,

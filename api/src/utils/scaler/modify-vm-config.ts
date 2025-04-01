@@ -1,7 +1,10 @@
 import fs from "fs/promises";
-import { MAX_VM_COUNT_PER_REGION, TERRAFORM_DIR_PATH } from "../config/config";
+import {
+  MAX_VM_COUNT_PER_REGION,
+  TERRAFORM_DIR_PATH,
+} from "../../config/config";
 import { z } from "zod";
-import { azureRegions } from "../config/azure-regions";
+import { azureRegions } from "../../config/azure-regions";
 import { v4 } from "uuid";
 
 const terraformConfigSchema = z.object({

@@ -1,14 +1,14 @@
 import { execa } from "execa";
-import { VMIps } from "..";
+import { VMIps } from "../../index.old";
 import {
   MASTER_VM_SSH_PRIVATE_KEY_PATH,
   MASTER_VM_ADMIN_USERNAME,
   MASTER_VM_IP,
   NODE_VM_ADMIN_USERNAME,
   NODE_VM_SSH_PRIVATE_KEY_PATH,
-} from "../config/config";
-import replaceRootAliasToAbsolutePath from "./replace-root-alias-to-absolute-path";
-import { logger } from "./logger";
+} from "../../config/config";
+import replaceRootAliasToAbsolutePath from "../replace-root-alias-to-absolute-path";
+import logger from "../logger";
 import sshToWorkerAndRun from "./ssh-to-worker-and-run";
 
 export default async function joinNodes(vmIps: VMIps, bastionIp: string) {

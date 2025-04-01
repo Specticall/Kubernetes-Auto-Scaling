@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { TERRAFORM_DIR_PATH } from "../config/config";
+import { TERRAFORM_DIR_PATH } from "../../config/config";
 import chalk from "chalk";
 
 export default async function runTerraformApply() {

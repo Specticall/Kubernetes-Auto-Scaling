@@ -1,7 +1,7 @@
 import { execa } from "execa";
-import { TERRAFORM_DIR_PATH, TERRAFORM_OUTPUT_NAME } from "../config/config";
-import { logger } from "./logger";
+import { TERRAFORM_DIR_PATH, TERRAFORM_OUTPUT_NAME } from "../../config/config";
 import { z } from "zod";
+import logger from "../logger";
 
 export default async function getTerraformOutput<T extends z.ZodTypeAny>(
   name: string,

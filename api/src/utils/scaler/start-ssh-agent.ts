@@ -1,9 +1,6 @@
 import { execa } from "execa";
-import { logger } from "./logger";
-import { NODE_VM_SSH_PRIVATE_KEY_PATH } from "../config/config";
-import os from "os";
-import path from "path";
-import replaceRootAliasToAbsolutePath from "./replace-root-alias-to-absolute-path";
+import { NODE_VM_SSH_PRIVATE_KEY_PATH } from "../../config/config";
+import replaceRootAliasToAbsolutePath from "../replace-root-alias-to-absolute-path";
 
 /**
 In order to forward ssh requests using the bastion vm, the local machine needs to have `ssh-agent` running or else the key won't be forwarded to bastion and we need to manually inject the key to each vm or the ssh will fail

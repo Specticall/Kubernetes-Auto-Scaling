@@ -6,10 +6,10 @@ import {
   MASTER_VM_IP,
   MASTER_VM_SSH_PRIVATE_KEY_PATH,
   NODE_VM_SSH_PRIVATE_KEY_PATH,
-} from "../config/config";
+} from "../../config/config";
 import { execa } from "execa";
 import chalk from "chalk";
-import replaceRootAliasToAbsolutePath from "./replace-root-alias-to-absolute-path";
+import replaceRootAliasToAbsolutePath from "../replace-root-alias-to-absolute-path";
 
 export default async function detachWorkers(nodeNames: string[]) {
   // 1. Create inventory-master.ini

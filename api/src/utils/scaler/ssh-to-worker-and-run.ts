@@ -1,9 +1,9 @@
 import { execa } from "execa";
-import replaceRootAliasToAbsolutePath from "./replace-root-alias-to-absolute-path";
+import replaceRootAliasToAbsolutePath from "../replace-root-alias-to-absolute-path";
 import {
   NODE_VM_ADMIN_USERNAME,
   NODE_VM_SSH_PRIVATE_KEY_PATH,
-} from "../config/config";
+} from "../../config/config";
 
 /**
  * SSH to worker with a jump through the bastion server then run a specified command
