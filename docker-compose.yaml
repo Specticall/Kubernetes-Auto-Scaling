@@ -1,0 +1,19 @@
+services:
+  rabbit_mq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - "./prometheus:/etc/prometheus"
+      - "C:/Users/ASUS/.kube:/etc/kubernetes/"
+      - "./prometheus/certs:/etc/kubernetes/certs"
+    environment:
+      - KUBECONFIG=/etc/kubernetes/config
+    restart: always

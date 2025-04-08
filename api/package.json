@@ -6,12 +6,13 @@
   "main": "index.js",
   "scripts": {
     "scale": "tsx ./src/index.ts",
-    "start": "nodemon"
+    "start": "concurrently \"nodemon\" \"tsx ./src/consumers/scale-consumer.ts\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/amqplib": "^0.10.7",
     "@types/chalk": "^2.2.4",
     "@types/execa": "^2.0.2",
     "@types/node": "^22.13.14",
@@ -23,11 +24,14 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/ora": "^3.2.0",
+    "amqplib": "^0.10.7",
     "chalk": "^5.4.1",
+    "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "execa": "^9.5.2",
     "express": "^5.1.0",
     "ora": "^8.2.0",
+    "pm2": "^6.0.5",
     "uuid": "^11.1.0",
     "zod": "^3.24.2"
   }

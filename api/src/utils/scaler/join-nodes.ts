@@ -16,6 +16,10 @@ export default async function joinNodes(vmIps: VMIps, bastionIp: string) {
   const printJoinCommandOutput = execa("ssh", [
     "-i",
     replaceRootAliasToAbsolutePath(MASTER_VM_SSH_PRIVATE_KEY_PATH),
+    "-o",
+    "StrictHostKeyChecking=no",
+    "-o",
+    "UserKnownHostsFile=/dev/null",
     `${MASTER_VM_ADMIN_USERNAME}@${MASTER_VM_IP}`,
     "kubeadm",
     "token",

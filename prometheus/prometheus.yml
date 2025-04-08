@@ -1,0 +1,26 @@
+global:
+  scrape_interval: 15s # Scrape interval for all targets
+
+scrape_configs:
+  # Scrape the Kubernetes API server for node discovery
+  - job_name: "kubelet"
+    scheme: https
+    metrics_path: /metrics
+    kubernetes_sd_configs:
+      # Role to discover nodes (Kubernetes worker nodes)
+      - api_server: "https://20.255.57.25:6443"
+        role: node
+        tls_config:
+          ca_file: /etc/kubernetes/certs/ca.crt # Path to your CA certificate
+          cert_file: /etc/kubernetes/certs/apiserver.crt # Path to your Service Account certificate
+          key_file: /etc/kubernetes/certs/apiserver.key # Path to your Service Account key
+          insecure_skip_verify: true # Skip verification if Kubelet uses self-signed certificates
+    tls_config:
+      ca_file: /etc/kubernetes/certs/ca.crt # Path to your CA certificate
+      cert_file: /etc/kubernetes/certs/apiserver.crt # Path to your Service Account certificate
+      key_file: /etc/kubernetes/certs/apiserver.key # Path to your Service Account key
+      insecure_skip_verify: true # Skip verification if Kubelet uses self-signed certificates
+    relabel_configs:
+      # Relabel node name to instance label for Prometheus
+      - source_labels: [__meta_kubernetes_node_name]
+        target_label: instance
