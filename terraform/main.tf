@@ -22,6 +22,7 @@ module "vms" {
 
   resource_group_name = local.resource_group_name
   for_each = local.workers_config
+  image_id = local.vm_image_id
 
   access = {
     admin_username = local.worker_vm_admin_username

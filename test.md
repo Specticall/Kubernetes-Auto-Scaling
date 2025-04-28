@@ -1,0 +1,1 @@
+ansible-playbook -i inventory.ini setup-node.yaml --private-key="~/.ssh/k8s-key" -e "ansible_user=worker ansible_ssh_common_args='-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -W %h:%p bastion@52.229.205.197\" -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'"

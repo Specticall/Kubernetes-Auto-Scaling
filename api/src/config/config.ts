@@ -1,7 +1,7 @@
 export const TERRAFORM_DIR_PATH = `${process.cwd()}/../terraform`;
 export const TERRAFORM_JSON_OUTPUT_DIR_PATH = `${process.cwd()}`;
-export const ANSIBLE_DIR_PATH = `${process.cwd()}/../ansible`;
 export const TERRAFORM_OUTPUT_NAME = "vms";
+export const ANSIBLE_DIR_PATH = `${process.cwd()}/../ansible`;
 export const RABBIT_MQ_URL = "amqp://localhost";
 
 // USER CONFIGURATION

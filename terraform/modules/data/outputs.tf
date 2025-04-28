@@ -13,3 +13,7 @@ output "k8s_nsg" {
 output "k8s_master_subnet" {
   value = data.azurerm_subnet.k8s_master_subnet
 }
+
+output "k8s_node_images" {
+  value = data.azurerm_shared_image_version.k8s_node_images
+}

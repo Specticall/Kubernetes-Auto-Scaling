@@ -7,7 +7,6 @@ import {
   logger,
   modifyVMConfig,
   runTerraformApply,
-  setupNodeVMWithAnsible,
   startSSHAgent,
 } from "../utils";
 import fs from "fs/promises";
@@ -64,11 +63,11 @@ export default async function scaleWorker(targetVMCount: number) {
       logger.success("Successfuly retrieved vm ips");
       logger.break();
 
-      // Configure VM and setup k8s dependencies
-      logger.info("Configuring vms using ansible playbook, please wait...");
-      await setupNodeVMWithAnsible(vmIpList, bastionIp);
-      logger.success("Successfuly configured vms");
-      logger.break();
+      // // Configure VM and setup k8s dependencies
+      // logger.info("Configuring vms using ansible playbook, please wait...");
+      // await setupNodeVMWithAnsible(vmIpList, bastionIp);
+      // logger.success("Successfuly configured vms");
+      // logger.break();
 
       logger.info("Joining provisioned nodes into the cluster, please wait...");
       await joinNodes(vmIpList, bastionIp);

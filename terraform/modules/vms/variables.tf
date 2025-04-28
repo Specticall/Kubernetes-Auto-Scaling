@@ -30,3 +30,8 @@ variable "create_public_ip" {
   type = bool
   default = true
 }
+
+variable "image_id" {
+  type = string
+  default = ""
+}
